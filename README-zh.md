@@ -269,9 +269,9 @@ python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 1
 
 # 一步到位的兼容命令（会直接创建任务；请先自行预估并确认）
 # 创建 + 轮询 + 下载一步完成
-python runtime/crun_cli.py task run   --model <model> --input-file input.json
+python runtime/crun_cli.py task run --model <model> --input-file input.json
 # 路由 + 创建 + 轮询 + 下载一步完成
-python runtime/crun_cli.py media run  --intent-file intent.json --input-file input.json
+python runtime/crun_cli.py media run --intent-file intent.json --input-file input.json
 ```
 
 路由意图的结构：
