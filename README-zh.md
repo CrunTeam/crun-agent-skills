@@ -99,25 +99,16 @@ git clone https://github.com/Sean190828/crun-agent-skills.git ~/.claude/skills/c
 
 ### 第二步：配置 API Key
 
-在这里获取你的 Crun API Key：https://crun.ai/zh/user-api-key （格式：`ak_` 加 32 位字符），推荐一次性写入 `~/.crun/.env`：
+在这里获取你的 Crun API Key：https://crun.ai/zh/user-api-key （格式：`ak_` 加 32 位字符），然后用 CLI 内置的配置命令一次性写入：
 
 ```bash
-# macOS / Linux
-mkdir -p ~/.crun && echo 'CRUN_API_KEY=<your_api_key>' >> ~/.crun/.env
+python runtime/crun_cli.py config set-key <your_api_key>
 ```
 
-```powershell
-# Windows PowerShell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.crun" | Out-Null; Add-Content "$env:USERPROFILE\.crun\.env" 'CRUN_API_KEY=<your_api_key>'
-```
+该命令会校验 Key 格式并持久化到 `~/.crun/.env`，之后每个新终端都能自动读取。也可以自行设置 `CRUN_API_KEY` 环境变量。
 
-```bat
-:: Windows CMD
-if not exist "%USERPROFILE%\.crun" mkdir "%USERPROFILE%\.crun" && echo CRUN_API_KEY=<your_api_key>>> "%USERPROFILE%\.crun\.env"
-```
-
-运行时按以下顺序解析密钥：`~/.crun/.env` → `CRUN_API_KEY` 环境变量 → `runtime/.env`。如果没有配置任何密钥，每条命令都会返回
-`configuration_options`，其中包含与你的操作系统和 shell 精确匹配的一条永久配置命令。
+运行时按以下顺序解析密钥：`~/.crun/.env` → `CRUN_API_KEY` 环境变量。如果没有配置任何密钥，每条命令都会返回
+`configuration_options`，其中推荐项就是已填好脚本绝对路径、可直接执行的 `config set-key` 配置命令。
 
 如需指向非默认 API 端点，可另行设置 `CRUN_BASE_URL`。
 
@@ -240,12 +231,14 @@ python runtime/crun_cli.py credits
 
 ```bash
 # 账户
+# 初始化 API 密钥
+python runtime/crun_cli.py config set-key <your_api_key>
 # 查询账户额度余额
 python runtime/crun_cli.py credits
 
 # 模型
 # 调取远程最新模型列表
-python runtime/crun_cli.py models list --modality
+python runtime/crun_cli.py models list
 # 离线读取本地模型目录，不发起网络请求
 python runtime/crun_cli.py models list --local
 # 查询指定模型的输入参数要求（schema）
