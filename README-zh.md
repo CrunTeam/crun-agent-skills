@@ -240,26 +240,38 @@ python runtime/crun_cli.py credits
 
 ```bash
 # 账户
-python runtime/crun_cli.py credits                                              # 查询账户额度余额
+# 查询账户额度余额
+python runtime/crun_cli.py credits
 
 # 模型
-python runtime/crun_cli.py models list --modality                         # 调取远程最新模型列表
-python runtime/crun_cli.py models list --local                                  # 离线读取本地模型目录，不发起网络请求
-python runtime/crun_cli.py models describe --model google/nano-banana-pro       # 查询指定模型的输入参数要求（schema）
-python runtime/crun_cli.py models route --intent-file intent.json               # 按结构化意图从本地目录路由模型
+# 调取远程最新模型列表
+python runtime/crun_cli.py models list --modality
+# 离线读取本地模型目录，不发起网络请求
+python runtime/crun_cli.py models list --local
+# 查询指定模型的输入参数要求（schema）
+python runtime/crun_cli.py models describe --model google/nano-banana-pro
+# 按结构化意图从本地目录路由模型
+python runtime/crun_cli.py models route --intent-file intent.json
 
 # 素材上传
-python runtime/crun_cli.py upload ./reference.png                               # 上传本地图片/视频/音频
+# 上传本地图片/视频/音频
+python runtime/crun_cli.py upload ./reference.png
 
 # 任务生命周期
-python runtime/crun_cli.py task estimate --model <model> --input-file input.json    # 预估额度消耗，不创建任务
-python runtime/crun_cli.py task create   --model <model> --input-file input.json    # 创建任务并立即返回 task_id，扣费操作
-python runtime/crun_cli.py task status   --task-id <task_id>                        # 查询一次任务状态，已完成则顺带下载媒体
-python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 120  # 轮询任务直到完成或超时
+# 预估额度消耗，不创建任务
+python runtime/crun_cli.py task estimate --model <model> --input-file input.json
+# 创建任务并立即返回 task_id，扣费操作
+python runtime/crun_cli.py task create   --model <model> --input-file input.json
+# 查询一次任务状态，已完成则顺带下载媒体
+python runtime/crun_cli.py task status   --task-id <task_id>
+# 轮询任务直到完成或超时
+python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 120
 
 # 一步到位的兼容命令（会直接创建任务；请先自行预估并确认）
-python runtime/crun_cli.py task run   --model <model> --input-file input.json       # 创建 + 轮询 + 下载一步完成
-python runtime/crun_cli.py media run  --intent-file intent.json --input-file input.json  # 路由 + 创建 + 轮询 + 下载一步完成
+# 创建 + 轮询 + 下载一步完成
+python runtime/crun_cli.py task run   --model <model> --input-file input.json
+# 路由 + 创建 + 轮询 + 下载一步完成
+python runtime/crun_cli.py media run  --intent-file intent.json --input-file input.json
 ```
 
 路由意图的结构：

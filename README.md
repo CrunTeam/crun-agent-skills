@@ -250,26 +250,38 @@ All commands print one JSON object to stdout and JSON errors to stderr — desig
 
 ```bash
 # Account
-python runtime/crun_cli.py credits                                              # Get the account credit balance
+# Get the account credit balance
+python runtime/crun_cli.py credits
 
 # Models
-python runtime/crun_cli.py models list --modality                         # Fetch the latest remote model list
-python runtime/crun_cli.py models list --local                                  # Read the local catalog offline, no network call
-python runtime/crun_cli.py models describe --model google/nano-banana-pro       # Inspect a model's live input schema and details
-python runtime/crun_cli.py models route --intent-file intent.json               # Route from a structured intent;
+# Fetch the latest remote model list
+python runtime/crun_cli.py models list --modality
+# Read the local catalog offline, no network call
+python runtime/crun_cli.py models list --local
+# Inspect a model's live input schema and details
+python runtime/crun_cli.py models describe --model google/nano-banana-pro
+# Route from a structured intent
+python runtime/crun_cli.py models route --intent-file intent.json
 
 # Media upload
-python runtime/crun_cli.py upload ./reference.png                               # Upload a local image/video/audio
+# Upload a local image/video/audio
+python runtime/crun_cli.py upload ./reference.png
 
 # Task lifecycle
-python runtime/crun_cli.py task estimate --model <model> --input-file input.json    # Estimate credits (estimated_credits / affordable); creates nothing
-python runtime/crun_cli.py task create   --model <model> --input-file input.json    # Create the task and return task_id (charges credits)
-python runtime/crun_cli.py task status   --task-id <task_id>                        # Check status once; downloads media if already finished
-python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 120  # Poll until terminal or timeout; resumable
+# Estimate credits (estimated_credits / affordable); creates nothing
+python runtime/crun_cli.py task estimate --model <model> --input-file input.json
+# Create the task and return task_id (charges credits)
+python runtime/crun_cli.py task create   --model <model> --input-file input.json
+# Check status once; downloads media if already finished
+python runtime/crun_cli.py task status   --task-id <task_id>
+# Poll until terminal or timeout; resumable
+python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 120
 
 # One-shot compatibility commands (create directly; estimate & confirm yourself first)
-python runtime/crun_cli.py task run   --model <model> --input-file input.json       # Create + poll + download in one call
-python runtime/crun_cli.py media run  --intent-file intent.json --input-file input.json  # Route + create + poll + download in one call
+# Create + poll + download in one call
+python runtime/crun_cli.py task run   --model <model> --input-file input.json
+# Route + create + poll + download in one call
+python runtime/crun_cli.py media run  --intent-file intent.json --input-file input.json
 ```
 
 Routing intent shape:
