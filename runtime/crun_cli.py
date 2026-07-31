@@ -19,8 +19,7 @@ from urllib.request import Request, urlopen
 
 SUCCESS_CODE = 200
 TERMINAL_STATUSES = {"success", "failed"}
-# DEFAULT_BASE_URL = "https://api.crun.ai"
-DEFAULT_BASE_URL = "https://sg-test-th-dev.operatehunt.com"
+DEFAULT_BASE_URL = "https://api.crun.ai"
 DEFAULT_CATALOG = Path(__file__).resolve().parent.parent / "catalog" / "models.json"
 DEFAULT_OUTPUT_DIR = Path.home() / ".crun" / "output" / date.today().strftime("%Y-%m-%d")
 DEFAULT_REQUEST_RETRIES = 2
@@ -29,7 +28,8 @@ RETRYABLE_HTTP_STATUS_CODES = {408, 429, 500, 502, 503, 504}
 API_KEY_ENV = "CRUN_API_KEY"
 API_KEY_PREFIX = "ak_"
 API_KEY_LENGTH = 35
-CLI_ENV_FILE = Path(__file__).resolve().parent / ".env"
+CLI_SCRIPT_PATH = Path(__file__).resolve()
+HOME_ENV_FILE = Path.home() / ".crun" / ".env"
 
 
 class CrunError(RuntimeError):
@@ -83,30 +83,23 @@ def validate_api_key(api_key: str, source: str) -> str:
 
 
 def api_key_configuration_options() -> list[dict[str, Any]]:
-    """Permanent setup commands per method, ordered by recommendation.
+    """Permanent setup methods, ordered by recommendation.
 
-    Options are listed in resolution order: the recommended home `.crun/.env`
-    file first, then the environment variable, then the bundled CLI `.env`.
-    Every command persists the key across new terminals so the user does not
-    have to re-export it each session.
+    The recommended method is the CLI's own `config set-api-key` command, which
+    persists the key into the home `~/.crun/.env` file; the environment
+    variable is the alternative. Commands embed the absolute script path so
+    they run from any working directory.
     """
-    home_env_line = f"{API_KEY_ENV}=<your_api_key>"
-    cli_env_path = str(CLI_ENV_FILE)
+    cli_command = f'python "{CLI_SCRIPT_PATH}" config set-api-key <your_api_key>'
     return [
         {
-            "method": "home_env_file",
-            "location": str(Path.home() / ".crun" / ".env"),
+            "method": "cli_config_command",
+            "location": str(HOME_ENV_FILE),
             "recommended": True,
             "commands": {
-                "macos_linux": f"mkdir -p ~/.crun && echo '{home_env_line}' >> ~/.crun/.env",
-                "windows_cmd": (
-                    'if not exist "%USERPROFILE%\\.crun" mkdir "%USERPROFILE%\\.crun" && '
-                    f'echo {home_env_line}>> "%USERPROFILE%\\.crun\\.env"'
-                ),
-                "windows_powershell": (
-                    'New-Item -ItemType Directory -Force "$env:USERPROFILE\\.crun" | Out-Null; '
-                    f'Add-Content "$env:USERPROFILE\\.crun\\.env" \'{home_env_line}\''
-                ),
+                "macos_linux": cli_command,
+                "windows_cmd": cli_command,
+                "windows_powershell": cli_command,
             },
         },
         {
@@ -123,35 +116,60 @@ def api_key_configuration_options() -> list[dict[str, Any]]:
                 ),
             },
         },
-        {
-            "method": "cli_env_file",
-            "location": cli_env_path,
-            "commands": {
-                "macos_linux": f"echo '{home_env_line}' >> \"{cli_env_path}\"",
-                "windows_cmd": f'echo {home_env_line}>> "{cli_env_path}"',
-                "windows_powershell": f"Add-Content \"{cli_env_path}\" '{home_env_line}'",
-            },
-        },
     ]
 
 
+def set_api_key(api_key: str) -> dict[str, Any]:
+    """Validate the key and persist it into ~/.crun/.env (create or replace)."""
+    api_key = validate_api_key(api_key, "config set-api-key argument")
+    key_line = f"{API_KEY_ENV}={api_key}"
+
+    lines: list[str] = []
+    try:
+        lines = HOME_ENV_FILE.read_text(encoding="utf-8-sig").splitlines()
+    except FileNotFoundError:
+        pass
+    except OSError as exc:
+        raise CrunError(f"Cannot read API key configuration file: {HOME_ENV_FILE}") from exc
+
+    replaced = False
+    for index, raw_line in enumerate(lines):
+        stripped = raw_line.strip()
+        if stripped.startswith("export "):
+            stripped = stripped[7:].lstrip()
+        if stripped.partition("=")[0].strip() == API_KEY_ENV:
+            lines[index] = key_line
+            replaced = True
+    if not replaced:
+        lines.append(key_line)
+
+    try:
+        HOME_ENV_FILE.parent.mkdir(parents=True, exist_ok=True)
+        HOME_ENV_FILE.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    except OSError as exc:
+        raise CrunError(f"Cannot write API key configuration file: {HOME_ENV_FILE}") from exc
+
+    return {
+        "ok": True,
+        "action": "replaced" if replaced else "created",
+        "location": str(HOME_ENV_FILE),
+        "verify_with": f'python "{CLI_SCRIPT_PATH}" credits',
+    }
+
+
 def resolve_api_key() -> str:
-    home_env_file = Path.home() / ".crun" / ".env"
-    home_api_key = read_dotenv_value(home_env_file, API_KEY_ENV)
+    home_api_key = read_dotenv_value(HOME_ENV_FILE, API_KEY_ENV)
     if home_api_key:
-        return validate_api_key(home_api_key, str(home_env_file))
+        return validate_api_key(home_api_key, str(HOME_ENV_FILE))
 
     environment_api_key = os.getenv(API_KEY_ENV, "").strip()
     if environment_api_key:
         return validate_api_key(environment_api_key, f"environment variable {API_KEY_ENV}")
 
-    cli_api_key = read_dotenv_value(CLI_ENV_FILE, API_KEY_ENV)
-    if cli_api_key:
-        return validate_api_key(cli_api_key, str(CLI_ENV_FILE))
-
     raise CrunError(
-        "CRUN_API_KEY is not configured. Configure it using one of the three supported "
-        "methods below; the home ~/.crun/.env file is recommended.",
+        "CRUN_API_KEY is not configured. Configure it with the recommended "
+        f'command: python "{CLI_SCRIPT_PATH}" config set-api-key <your_api_key>, '
+        f"or set the {API_KEY_ENV} environment variable.",
         payload={"configuration_options": api_key_configuration_options()},
     )
 
@@ -560,6 +578,11 @@ def build_parser() -> argparse.ArgumentParser:
     credits = subparsers.add_parser("credits", help="Get account credits")  # noqa
     add_remote_options(credits)
 
+    config = subparsers.add_parser("config", help="Configure the CLI (API key)")
+    config_sub = config.add_subparsers(dest="config_command", required=True)
+    set_key = config_sub.add_parser("set-api-key", help="Validate and persist the API key into ~/.crun/.env")
+    set_key.add_argument("api_key", help="Crun API key ('ak_' followed by 32 characters)")
+
     models = subparsers.add_parser("models", help="List, describe, or route models")
     model_sub = models.add_subparsers(dest="models_command", required=True)
     model_list = model_sub.add_parser("list")
@@ -616,6 +639,11 @@ def build_parser() -> argparse.ArgumentParser:
 def execute(args: argparse.Namespace) -> Any:
     if args.command == "credits":
         return client_from_args(args).credits()
+
+    if args.command == "config":
+        if args.config_command == "set-api-key":
+            return set_api_key(args.api_key)
+        raise CrunError("Unsupported config command")
 
     if args.command == "upload":
         return client_from_args(args).upload_file(args.file, args.content_type)

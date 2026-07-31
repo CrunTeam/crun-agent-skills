@@ -5,7 +5,7 @@ description: Check a Crun API account credit balance and estimate whether a vali
 
 # Crun Account Credits
 
-Use `../../runtime/crun_cli.py`. Let it resolve `CRUN_API_KEY` (recommended `~/.crun/.env` first, then the environment variable, then `runtime/.env`). If configuration is missing, the error carries `configuration_options`; recommend `~/.crun/.env` and give the one permanent command matching the user's OS and shell, without exposing or requesting the key in chat.
+Use `../../runtime/crun_cli.py`. Let it resolve `CRUN_API_KEY` (the `~/.crun/.env` file first, then the environment variable). If configuration is missing, the error carries `configuration_options`; recommend the first option — the ready-to-run `python "<absolute path>/crun_cli.py" config set-api-key <your_api_key>` command, which persists the key into `~/.crun/.env` — without exposing or requesting the key in chat.
 
 ## Check the balance
 

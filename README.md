@@ -105,26 +105,18 @@ git clone https://github.com/Sean190828/crun-agent-skills.git ~/.claude/skills/c
 ### Step 2) Configure your API key
 
 Get your Crun API key here: https://crun.ai/user-api-key (format: `ak_` followed by 32 characters), then store it once
-in the recommended `~/.crun/.env` file:
+with the CLI's built-in config command (works the same on every OS):
 
 ```bash
-# macOS / Linux
-mkdir -p ~/.crun && echo 'CRUN_API_KEY=<your_api_key>' >> ~/.crun/.env
+python runtime/crun_cli.py config set-api-key <your_api_key>
 ```
 
-```powershell
-# Windows PowerShell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.crun" | Out-Null; Add-Content "$env:USERPROFILE\.crun\.env" 'CRUN_API_KEY=<your_api_key>'
-```
+The command validates the key format and persists it into `~/.crun/.env`, so every new terminal picks it up
+automatically. Alternatively, set the `CRUN_API_KEY` environment variable yourself.
 
-```bat
-:: Windows CMD
-if not exist "%USERPROFILE%\.crun" mkdir "%USERPROFILE%\.crun" && echo CRUN_API_KEY=<your_api_key>>> "%USERPROFILE%\.crun\.env"
-```
-
-The runtime resolves the key in this order: `~/.crun/.env` → `CRUN_API_KEY` environment variable → `runtime/.env`. If no
-key is configured, every command returns a `configuration_options` payload with the exact setup command for your OS and
-shell.
+The runtime resolves the key in this order: `~/.crun/.env` → `CRUN_API_KEY` environment variable. If no key is
+configured, every command returns a `configuration_options` payload whose recommended entry is the ready-to-run
+`config set-api-key` command with the absolute script path filled in.
 
 Optionally set `CRUN_BASE_URL` to target a non-default API endpoint.
 
@@ -250,12 +242,14 @@ All commands print one JSON object to stdout and JSON errors to stderr — desig
 
 ```bash
 # Account
+# Setup and validate the API key
+python runtime/crun_cli.py config set-api-key <your_api_key>
 # Get the account credit balance
 python runtime/crun_cli.py credits
 
 # Models
 # Fetch the latest remote model list
-python runtime/crun_cli.py models list --modality
+python runtime/crun_cli.py models list
 # Read the local catalog offline, no network call
 python runtime/crun_cli.py models list --local
 # Inspect a model's live input schema and details

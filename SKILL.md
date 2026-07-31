@@ -79,7 +79,8 @@ is authorized to transform the source. Preserve any disclosure or labeling reque
 non-consensual sexual content, and unauthorized removal of an ownership mark.
 
 Keep API keys out of task payloads, output, and committed files. Let the runtime resolve `CRUN_API_KEY` in this order:
-the recommended `~/.crun/.env` file first, then the `CRUN_API_KEY` environment variable, then `runtime/.env`. When no
-key is configured, the runtime returns `configuration_options` — an ordered list with a permanent setup command for each
-method split by platform (`macos_linux`, `windows_cmd`, `windows_powershell`). Recommend `~/.crun/.env` first, then
-surface the single command matching the user's OS and shell so they can configure it without re-exporting each session.
+the `~/.crun/.env` file first, then the `CRUN_API_KEY` environment variable. When no key is configured, the runtime
+returns `configuration_options` — an ordered list with a permanent setup command for each method split by platform
+(`macos_linux`, `windows_cmd`, `windows_powershell`). Recommend the first option: the CLI's own
+`python "<absolute path to runtime>/crun_cli.py" config set-api-key <your_api_key>` command (already fully resolved in the
+payload), which validates the key and persists it into `~/.crun/.env` so it works across sessions on every platform.
