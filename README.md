@@ -279,9 +279,9 @@ python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 1
 
 # One-shot compatibility commands (create directly; estimate & confirm yourself first)
 # Create + poll + download in one call
-python runtime/crun_cli.py task run   --model <model> --input-file input.json
+python runtime/crun_cli.py task run --model <model> --input-file input.json
 # Route + create + poll + download in one call
-python runtime/crun_cli.py media run  --intent-file intent.json --input-file input.json
+python runtime/crun_cli.py media run --intent-file intent.json --input-file input.json
 ```
 
 Routing intent shape:
