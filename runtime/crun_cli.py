@@ -3,13 +3,13 @@
 
 from __future__ import annotations
 
+import os
+import sys
+import time
 import argparse
 import http.client
 import json
 import mimetypes
-import os
-import sys
-import time
 from datetime import date
 from pathlib import Path
 from typing import Any, Optional
