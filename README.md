@@ -271,11 +271,11 @@ python runtime/crun_cli.py upload ./reference.png
 # Estimate credits (estimated_credits / affordable); creates nothing
 python runtime/crun_cli.py task estimate --model <model> --input-file input.json
 # Create the task and return task_id (charges credits)
-python runtime/crun_cli.py task create   --model <model> --input-file input.json
+python runtime/crun_cli.py task create --model <model> --input-file input.json
 # Check status once; downloads media if already finished
-python runtime/crun_cli.py task status   --task-id <task_id>
+python runtime/crun_cli.py task status --task-id <task_id>
 # Poll until terminal or timeout; resumable
-python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 120
+python runtime/crun_cli.py task wait --task-id <task_id> --timeout-seconds 120
 
 # One-shot compatibility commands (create directly; estimate & confirm yourself first)
 # Create + poll + download in one call

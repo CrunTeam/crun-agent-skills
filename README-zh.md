@@ -261,11 +261,11 @@ python runtime/crun_cli.py upload ./reference.png
 # 预估额度消耗，不创建任务
 python runtime/crun_cli.py task estimate --model <model> --input-file input.json
 # 创建任务并立即返回 task_id，扣费操作
-python runtime/crun_cli.py task create   --model <model> --input-file input.json
+python runtime/crun_cli.py task create --model <model> --input-file input.json
 # 查询一次任务状态，已完成则顺带下载媒体
-python runtime/crun_cli.py task status   --task-id <task_id>
+python runtime/crun_cli.py task status --task-id <task_id>
 # 轮询任务直到完成或超时
-python runtime/crun_cli.py task wait     --task-id <task_id> --timeout-seconds 120
+python runtime/crun_cli.py task wait --task-id <task_id> --timeout-seconds 120
 
 # 一步到位的兼容命令（会直接创建任务；请先自行预估并确认）
 # 创建 + 轮询 + 下载一步完成
