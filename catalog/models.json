@@ -166,7 +166,8 @@
       "model_type": "video",
       "modality": "video",
       "operations": [
-        "reference-to-video"
+        "reference-to-video",
+        "video-edit"
       ],
       "quality_tier": "standard",
       "speed_tier": "fast",
@@ -205,7 +206,8 @@
       "model_type": "video",
       "modality": "video",
       "operations": [
-        "reference-to-video"
+        "reference-to-video",
+        "video-edit"
       ],
       "quality_tier": "balanced",
       "speed_tier": "fast",
@@ -514,7 +516,8 @@
       "model_type": "video",
       "modality": "video",
       "operations": [
-        "reference-to-video"
+        "reference-to-video",
+        "video-edit"
       ],
       "quality_tier": "high",
       "speed_tier": "balanced",
