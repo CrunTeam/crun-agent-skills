@@ -138,7 +138,7 @@ You should see your numeric credit balance. You're ready to go.
 
 ---
 
-## Example Prompts
+## 🧠 Example Prompts
 
 Paste these into your agent chat, or just describe the media you want — the skill activates even when you never say "
 Crun" or name a model.
