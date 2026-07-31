@@ -17,17 +17,19 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode, urlsplit
 from urllib.request import Request, urlopen
 
+DEFAULT_BASE_URL = "https://api.crun.ai"
+DEFAULT_BASE_URL_CHINA = "https://api.crunai.com"  # for mainland China regions
+DEFAULT_REQUEST_RETRIES = 2
 SUCCESS_CODE = 200
 TERMINAL_STATUSES = {"success", "failed"}
-DEFAULT_BASE_URL = "https://api.crun.ai"
-DEFAULT_CATALOG = Path(__file__).resolve().parent.parent / "catalog" / "models.json"
-DEFAULT_OUTPUT_DIR = Path.home() / ".crun" / "output" / date.today().strftime("%Y-%m-%d")
-DEFAULT_REQUEST_RETRIES = 2
 RETRYABLE_HTTP_STATUS_CODES = {408, 429, 500, 502, 503, 504}
 
 API_KEY_ENV = "CRUN_API_KEY"
 API_KEY_PREFIX = "ak_"
 API_KEY_LENGTH = 35
+
+DEFAULT_CATALOG = Path(__file__).resolve().parent.parent / "catalog" / "models.json"
+DEFAULT_OUTPUT_DIR = Path.home() / ".crun" / "output" / date.today().strftime("%Y-%m-%d")
 CLI_SCRIPT_PATH = Path(__file__).resolve()
 HOME_ENV_FILE = Path.home() / ".crun" / ".env"
 
