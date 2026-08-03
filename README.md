@@ -83,23 +83,23 @@ Works on any agent platform that supports the SKILL.md convention, including but
 Vibe install — just send this to your AI agent:
 
 ```text
-Help me install this skill, use command `npx skills add Sean190828/crun-agent-skills --all`
+Help me install this skill, use command `npx skills add Crun-AI/crun-agent-skills --all`
 ```
 
 Or manually with the skills CLI:
 
 ```bash
 # List what can be installed from this repo
-npx skills add Sean190828/crun-agent-skills --list
+npx skills add Crun-AI/crun-agent-skills --list
 
 # Install everything
-npx skills add Sean190828/crun-agent-skills --all
+npx skills add Crun-AI/crun-agent-skills --all
 ```
 
 Or clone it straight into your agent's skills directory (Claude Code example):
 
 ```bash
-git clone https://github.com/Sean190828/crun-agent-skills.git ~/.claude/skills/crun-agent-skills
+git clone https://github.com/Crun-AI/crun-agent-skills.git ~/.claude/skills/crun-agent-skills
 ```
 
 ### Step 2) Configure your API key
