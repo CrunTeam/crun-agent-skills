@@ -78,23 +78,26 @@ crun-agent-skills/
 Vibe 安装 —— 直接把下面这句发给你的 AI：
 
 ```text
-帮我安装这个技能，使用命令 `npx skills add Crun-AI/crun-agent-skills --all`
+帮我安装这个技能，使用命令 `npx skills add CrunTeam/crun-agent-skills --all`
 ```
 
 或者用 skills CLI 手动安装：
 
 ```bash
 # 查看这个仓库里可安装的内容
-npx skills add Crun-AI/crun-agent-skills --list
+npx skills add CrunTeam/crun-agent-skills --list
 
 # 全部安装
-npx skills add Crun-AI/crun-agent-skills --all
+npx skills add CrunTeam/crun-agent-skills --all
+
+# 全局安装（用户级）
+npx skills add CrunTeam/crun-agent-skills -g
 ```
 
 也可以直接 clone 到 Agent 的 skills 目录（以 Claude Code 为例）：
 
 ```bash
-git clone https://github.com/Crun-AI/crun-agent-skills.git ~/.claude/skills/crun-agent-skills
+git clone https://github.com/CrunTeam/crun-agent-skills.git ~/.claude/skills/crun-agent-skills
 ```
 
 ### 第二步：配置 API Key

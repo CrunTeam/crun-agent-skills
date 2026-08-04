@@ -238,12 +238,12 @@ class CrunClient:
                 if retry and attempt < attempts - 1:
                     self._sleep_before_retry(attempt)
                     continue
-                raise CrunNetworkError(f"Crun network error: {exc.reason}") from exc
+                raise self._network_error(f"Crun network error: {exc.reason}") from exc
             except (TimeoutError, OSError) as exc:
                 if retry and attempt < attempts - 1:
                     self._sleep_before_retry(attempt)
                     continue
-                raise CrunNetworkError(f"Crun request failed: {exc}") from exc
+                raise self._network_error(f"Crun request failed: {exc}") from exc
             except json.JSONDecodeError as exc:
                 raise CrunError("Crun returned invalid JSON") from exc
 
@@ -258,6 +258,20 @@ class CrunClient:
     @staticmethod
     def _sleep_before_retry(attempt: int) -> None:
         time.sleep(min(2 ** attempt, 4.0))
+
+    def _network_error(self, message: str) -> CrunNetworkError:
+        """Build the terminal network error raised after all retries are exhausted."""
+        hint = None
+        if self.base_url == DEFAULT_BASE_URL:
+            hint = (
+                f"If you are in mainland China, try the China endpoint {DEFAULT_BASE_URL_CHINA} "
+                f"by passing --base-url {DEFAULT_BASE_URL_CHINA} or setting "
+                f"CRUN_BASE_URL={DEFAULT_BASE_URL_CHINA}."
+            )
+        return CrunNetworkError(
+            f"{message}. {hint}" if hint else message,
+            payload={"base_url": self.base_url, "suggested_base_url": DEFAULT_BASE_URL_CHINA} if hint else None,
+        )
 
     def credits(self) -> dict[str, Any]:
         return self.request("GET", "/api/v1/client/account/balance")
