@@ -1,6 +1,6 @@
 ---
 name: crun-agent-skills
-description: Run Crun image, video, audio, music, and media-tool workflows through the bundled standalone runtime. Use whenever the user wants to generate, edit, or transform an image, video, voice, speech, or music clip — even if they never say "Crun" or name a model — as well as for model routing, model-schema inspection, credit estimation, local-media upload, asynchronous task execution, downloading generated media, or inline local previews.
+description: Run Crun image, video, audio, music, media-tool, and meme/GIF workflows through the bundled standalone runtime. Use whenever the user wants to generate, edit, or transform an image, video, voice, speech, music clip, static meme, sticker, or animated GIF — even if they never say "Crun" or name a model — as well as for model routing, model-schema inspection, credit estimation, local-media upload, asynchronous task execution, downloading generated media, or inline local previews.
 ---
 
 # Crun Media Agent Skills
@@ -20,6 +20,7 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Choose a model from a broad request         | `skills/crun-model-router/SKILL.md`    |
 | Check balance or affordability              | `skills/crun-account-credits/SKILL.md` |
 | Create, monitor, resume, or retrieve a task | `skills/crun-task-runner/SKILL.md`     |
+| Generate static image or animated GIF memes | `skills/crun-meme-generator/SKILL.md`  |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.
