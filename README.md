@@ -189,6 +189,16 @@ Use $crun-agent-skills with model bytedance/seedance2-0-i2v to animate
 ./keyframe.png into a smooth 5-second clip.
 ```
 
+#### G) Generate speech or music
+
+```text
+Use $crun-agent-skills to synthesize this paragraph as natural speech: "..."
+```
+
+```text
+Use $crun-agent-skills to generate a warm lo-fi instrumental study track.
+```
+
 #### H) Generate static and animated GIF memes
 
 ```text

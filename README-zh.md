@@ -180,6 +180,16 @@ python runtime/crun_cli.py credits
 把 ./keyframe.png 动画化成流畅的 5 秒短片。
 ```
 
+#### G) 生成语音或音乐
+
+```text
+使用 $crun-agent-skills 把这段文字合成为自然的语音："..."
+```
+
+```text
+使用 $crun-agent-skills 生成一首温暖的 lo-fi 纯音乐学习曲。
+```
+
 #### H) 生成静态与动态 GIF 表情包
 
 ```text
