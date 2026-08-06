@@ -28,7 +28,7 @@
 
 ## 工作原理
 
-仓库是一个可组合的技能包：一个入口技能 + 三个职责单一的子技能。
+仓库是一个可组合的技能包：一个入口技能 + 四个职责单一的子技能。
 
 ```text
 crun-agent-skills/
@@ -39,10 +39,11 @@ crun-agent-skills/
 │   └── models.json                   # 本地模型目录（能力标签与路由优先级）
 ├── agents/
 │   └── openai.yaml                   # Agent 接口元信息
-└── skills/
-    ├── crun-model-router/            # 从结构化意图选择并查询模型
-    ├── crun-account-credits/         # 余额查询与可负担性预估
-    └── crun-task-runner/             # 任务创建、监控、恢复、结果交付
+├── skills/
+│   ├── crun-model-router/            # 从结构化意图选择并查询模型
+│   ├── crun-account-credits/         # 余额查询与可负担性预估
+│   ├── crun-task-runner/             # 任务创建、监控、恢复、结果交付
+│   └── crun-meme-generator/          # 静态表情包与动态 GIF 表情包生成（带视频转 GIF 转换）
 ```
 
 一个完整的端到端请求会依次经过：
@@ -189,7 +190,16 @@ python runtime/crun_cli.py credits
 使用 $crun-agent-skills 生成一首温暖的 lo-fi 纯音乐学习曲。
 ```
 
-#### H) 预估消耗、查询余额或续查任务
+#### H) 生成静态与动态 GIF 表情包
+
+```text
+使用 $crun-agent-skills 生成一个 3D Q版卡通风格的动态 GIF 表情包：
+- 主题：可爱小猫摇头的搞笑动态表情
+- 自动选择最省额度的最低分辨率生成视频，转为 GIF 并加上“摸鱼中...”描边字幕
+- 提交前先用按钮进行二次确认，包含风格、配文、分辨率及预估消耗。
+```
+
+#### I) 预估消耗、查询余额或续查任务
 
 ```text
 使用 $crun-agent-skills 在提交前预估这个请求的额度消耗：

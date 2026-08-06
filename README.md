@@ -32,7 +32,7 @@ Kling v3, Sora 2, Seedream, FLUX, Qwen-Image, Wan 2.7, Vidu Q3, Suno API, and Qw
 
 ## How It Works
 
-The repository is a composable skill package with one entry skill and three focused child skills:
+The repository is a composable skill package with one entry skill and four focused child skills:
 
 ```text
 crun-agent-skills/
@@ -43,10 +43,11 @@ crun-agent-skills/
 │   └── models.json                   # Local model catalog (capability labels & routing priorities)
 ├── agents/
 │   └── openai.yaml                   # Agent interface metadata
-└── skills/
-    ├── crun-model-router/            # Pick & inspect a model from a structured intent
-    ├── crun-account-credits/         # Balance check & affordability estimation
-    └── crun-task-runner/             # Task creation, monitoring, recovery, result delivery
+├── skills/
+│   ├── crun-model-router/            # Pick & inspect a model from a structured intent
+│   ├── crun-account-credits/         # Balance check & affordability estimation
+│   ├── crun-task-runner/             # Task creation, monitoring, recovery, result delivery
+│   └── crun-meme-generator/          # Static & animated GIF meme generator (with MP4 to GIF converter)
 ```
 
 A typical end-to-end request flows through:
@@ -198,7 +199,16 @@ Use $crun-agent-skills to synthesize this paragraph as natural speech: "..."
 Use $crun-agent-skills to generate a warm lo-fi instrumental study track.
 ```
 
-#### H) Estimate credits, check balance, or resume a task
+#### H) Generate static and animated GIF memes
+
+```text
+Use $crun-agent-skills to create a 3D cartoon style animated GIF meme:
+- Prompt: Funny reaction animation of a cute cat shaking its head
+- Auto-select lowest resolution for fast & affordable generation, convert MP4 to GIF, and overlay text caption "Monday Mood"
+- Ask for confirmation via interactive choice buttons showing model, caption, resolution, and credit estimate.
+```
+
+#### I) Estimate credits, check balance, or resume a task
 
 ```text
 Use $crun-agent-skills to quote credits before submission for this request:
