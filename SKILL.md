@@ -1,6 +1,6 @@
 ---
 name: crun-agent-skills
-description: Run Crun image, video, audio, music, media-tool, and meme/GIF workflows through the bundled standalone runtime. Use whenever the user wants to generate, edit, or transform an image, video, voice, speech, music clip, static meme, sticker, or animated GIF — even if they never say "Crun" or name a model — as well as for model routing, model-schema inspection, credit estimation, local-media upload, asynchronous task execution, downloading generated media, or inline local previews.
+description: Run Crun image, video, audio, music, and media-tool workflows through the bundled standalone runtime. Use whenever the user wants to generate, edit, or transform an image, video, voice, speech, or music clip — even if they never say "Crun" or name a model — as well as for model routing, model-schema inspection, credit estimation, local-media upload, asynchronous task execution, downloading generated media, or inline local previews.
 ---
 
 # Crun Media Agent Skills
