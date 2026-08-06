@@ -44,6 +44,7 @@ crun-agent-skills/
 │   ├── crun-account-credits/         # 余额查询与可负担性预估
 │   ├── crun-task-runner/             # 任务创建、监控、恢复、结果交付
 │   └── crun-meme-generator/          # 静态表情包与动态 GIF 表情包生成（带视频转 GIF 转换）
+│   └── crun-media-enhancer/          # 视频、图片增强
 ```
 
 一个完整的端到端请求会依次经过：
