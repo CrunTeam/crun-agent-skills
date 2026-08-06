@@ -100,11 +100,13 @@ Read `skills/crun-model-router/SKILL.md` to construct routing intent:
 - **Avoid Text in AI Video Prompt (解决视频模型文字乱码)**:
   - **Do NOT ask the video AI model to generate text inside the video prompt** because video models frequently distort text into unreadable gibberish.
   - Focus the video AI prompt purely on visual character, facial expression, and action (e.g. `"cute 3D cartoon cat looking shocked, funny looping reaction motion, clean background"`).
-- **Text Caption & Multilingual Adaptation (转成 GIF 时直接渲染清晰文字)**:
-  - Default to a funny/expressive text caption matching the user's language:
-    - Chinese context: `"摸鱼中..."`, `"收到！"`, `"满脑子都是放假"`, `"开摆"`, `"打工人打工魂"`.
-    - English context: `"Monday Mood"`, `"BRB Slapping Alarm"`, `"Approved!"`, `"On My Way"`.
-  - Pass the caption to `video_to_gif.py` via `--text "<caption_text>"`. The converter script overlays crisp, stroke-bordered text directly onto the GIF frames.
+- **Universal Multilingual Adaptation Strategy (通用多语言适配策略)**:
+  - **Text Caption & Modal Language**: Dynamically mirror the user's input language for text captions and confirmation dialogs.
+    - If user inputs in **English**: Caption & confirmation must be in English (e.g. `"Off to work..."`).
+    - If user inputs in **Chinese**: Caption & confirmation in Chinese (e.g. `"摸鱼中..."`).
+    - If user inputs in **Other Languages** (Japanese, Spanish, French, Korean, etc.): Natively generate the caption in that input language (e.g. Japanese: `"出勤中..."`, Spanish: `"Camino al trabajo"`).
+  - **AI Model Prompt Language (画面 Prompt 统一推荐英文)**: Always convert the underlying visual scene description in Crun model payloads into **clear English** (e.g. `"cute 3D cartoon cat walking with briefcase, funny looping reaction, clean background"`), because AI image/video models deliver optimal rendering quality with English prompts.
+  - Pass the text caption to `video_to_gif.py` via `--text "<caption_text>"`. The converter script overlays crisp, stroke-bordered text directly onto the GIF frames.
 - Set short duration (e.g. 2-5 seconds).
 
 ---
@@ -220,6 +222,23 @@ The script returns JSON output:
         "确认按此参数生成",
         "修改配文或风格",
         "取消生成"
+      ],
+      "is_multi_select": false
+    }
+  ]
+}
+```
+
+### Example 3: English Input Confirmation Example (`ask_question`)
+```json
+{
+  "questions": [
+    {
+      "question": "🎬 Meme generation plan prepared for your request:\n- Model: bytedance/seedance2-0-fast-t2v\n- Visual Style: 3D cartoon humor reaction style\n- Text Caption: \"Off to work...\" (Clean stroke text overlay)\n- Resolution: 480p (Lowest model resolution, fast & cost-efficient)\n- Duration: 3 seconds (12fps looping GIF)\n- Estimated Cost: 4.0 Credits",
+      "options": [
+        "Confirm & Generate",
+        "Modify Caption/Style",
+        "Cancel"
       ],
       "is_multi_select": false
     }
