@@ -69,7 +69,7 @@ Use model `video-enhance` and the resource URL as `video_url`. First show this l
 | Quality mode | Controls the quality/speed tier. | Standard: balanced speed and quality (`std`); Professional: maximum fidelity for production work (`pro`). | Standard (`std`) |
 | Enhancement strength | Controls how strongly the model changes the source. | Gentle: preserve the original look (`mild`); Balanced: apply a more visible quality lift (`moderate`). | Gentle (`mild`) |
 | Content type | Tunes enhancement for the video's visual style. | General video (`common`); Creator/short video (`ugc`); Short drama (`short_series`); AI-generated video (`aigc`); Old-film restoration (`old_film`). | General video (`common`) |
-| Output resolution | Sets the delivered frame size. | 720p (`720p`); Full HD (`1080p`); 2K (`2k`); 4K (`4k`). Higher resolutions generally require more processing. | Full HD (`1080p`) |
+| Output resolution | Sets the delivered frame size. | 720p (`720p`); HD (`1080p`); 2K (`2k`); 4K (`4k`). Higher resolutions generally require more processing. | HD (`1080p`) |
 | Frame rate | Sets motion smoothness in the output. | Cinematic 24 fps (`24`); Standard 30 fps (`30`); Smooth 60 fps (`60`); High frame rate 120 fps (`120`). | Standard 30 fps (`30`) |
 
 After showing the table, present five single-select controls, one for each row, in the same order. Offer only the listed frame-rate choices; do not expose a custom numeric entry. Warn in localized text before confirmation when the selected frame rate exceeds four times the source frame rate.
@@ -146,10 +146,10 @@ After structured form confirmation, or after the user confirms the analyzed Defa
 
    ```text
    python <runtime>/crun_cli.py task create --model <model> --input-file <input.json>
-   python <runtime>/crun_cli.py task wait --task-id <task_id> --timeout-seconds 120
+   python <runtime>/crun_cli.py task wait --task-id <task_id> --timeout-seconds 900
    ```
 
-   This polls at the default five-second interval until the 120-second local time limit. A timeout is a recoverable local stop, not a failed remote task; retain the task ID and follow the recovery rules instead of creating another task. Do not set or mention a maximum polling-attempt count.
+   This polls at the default five-second interval until the 900-second local time limit. A timeout is a recoverable local stop, not a failed remote task; retain the task ID and follow the recovery rules instead of creating another task. Do not set or mention a maximum polling-attempt count.
 
 5. Follow `crun-task-runner` for timeouts, failures, recovery, and result delivery. Return localized status text plus the normalized task ID, credits, and local media path. For both images and videos, verify the returned local path is inside the dynamically resolved daily output root (and its `<task_id>` child); identify a download error instead of claiming a nonexistent local output. Use the remote media URL only as a fallback.
 
