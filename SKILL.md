@@ -21,6 +21,7 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Check balance or affordability              | `skills/crun-account-credits/SKILL.md` |
 | Create, monitor, resume, or retrieve a task | `skills/crun-task-runner/SKILL.md`     |
 | Generate static image or animated GIF memes | `skills/crun-meme-generator/SKILL.md`  |
+| Enhance an uploaded image or video          | `skills/crun-media-enhancer/SKILL.md`  |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.

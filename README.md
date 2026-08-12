@@ -48,6 +48,7 @@ crun-agent-skills/
 │   ├── crun-account-credits/         # Balance check & affordability estimation
 │   ├── crun-task-runner/             # Task creation, monitoring, recovery, result delivery
 │   └── crun-meme-generator/          # Static & animated GIF meme generator (with MP4 to GIF converter)
+│   └── crun-media-enhancer/          # Enhance videos and images
 ```
 
 A typical end-to-end request flows through:
