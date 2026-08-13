@@ -47,8 +47,9 @@ crun-agent-skills/
 │   ├── crun-model-router/            # Pick & inspect a model from a structured intent
 │   ├── crun-account-credits/         # Balance check & affordability estimation
 │   ├── crun-task-runner/             # Task creation, monitoring, recovery, result delivery
-│   └── crun-meme-generator/          # Static & animated GIF meme generator (with MP4 to GIF converter)
-│   └── crun-media-enhancer/          # Enhance videos and images
+│   ├── crun-meme-generator/          # Static & animated GIF meme generator (with MP4 to GIF converter)
+│   ├── crun-media-enhancer/          # Enhance videos and images
+│   └── crun-action-camera-enhancer/  # Character action, pose dynamics & camera motion director (T2I, I2I, T2V, I2V)
 ```
 
 A typical end-to-end request flows through:
@@ -209,7 +210,15 @@ Use $crun-agent-skills to create a 3D cartoon style animated GIF meme:
 - Ask for confirmation via interactive choice buttons showing model, caption, resolution, and credit estimate.
 ```
 
-#### I) Estimate credits, check balance, or resume a task
+#### I) Enhance character action, pose dynamics, and camera trajectories
+
+```text
+Use $crun-agent-skills to generate an anime action video of a heroine casting an energy beam:
+- Automatically decompose into low-angle push-in camera trajectory, hand foreshortening, twin-tail/skirt wind physics, and glowing cyan energy orb VFX.
+- Route to video model, estimate credit usage, and prompt interactive confirmation buttons before rendering.
+```
+
+#### J) Estimate credits, check balance, or resume a task
 
 ```text
 Use $crun-agent-skills to quote credits before submission for this request:

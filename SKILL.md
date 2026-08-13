@@ -22,11 +22,19 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Create, monitor, resume, or retrieve a task | `skills/crun-task-runner/SKILL.md`     |
 | Generate static image or animated GIF memes | `skills/crun-meme-generator/SKILL.md`  |
 | Enhance an uploaded image or video          | `skills/crun-media-enhancer/SKILL.md`  |
+| Enhance character action, pose & camera motion (T2I, I2I, T2V, I2V) | `skills/crun-action-camera-enhancer/SKILL.md` |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.
 Treat `crun-task-runner` as the single authority for task creation, authorization gates, timeout recovery, failure
 handling, and result delivery. Read it before creating any task.
+
+**Dispatch rule (mandatory, before any other step):** if the request involves character actions, combat/fight scenes,
+martial arts, jumping, magic casting, acrobatics, dynamic poses, camera motion, or animating/transforming a character
+— FIRST invoke the `crun-action-camera-enhancer` skill through the Skill tool (loading `skills/crun-action-camera-enhancer/SKILL.md`
+into context), then build the prompt from its director breakdown before routing the model. Route afterwards with the
+enhanced prompt in mind. Do not skip it for action-heavy requests, and do not merely read the file — the skill must be
+explicitly loaded via the Skill tool so it shows as an active/loaded skill.
 
 ## Pass JSON portably
 
