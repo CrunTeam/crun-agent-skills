@@ -21,6 +21,7 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Check balance or affordability              | `skills/crun-account-credits/SKILL.md` |
 | Create, monitor, resume, or retrieve a task | `skills/crun-task-runner/SKILL.md`     |
 | Generate static image or animated GIF memes | `skills/crun-meme-generator/SKILL.md`  |
+| Generate multi-panel educational comics & storyboards | `skills/crun-educational-comic/SKILL.md` |
 | Enhance an uploaded image or video          | `skills/crun-media-enhancer/SKILL.md`  |
 | Enhance character action, pose & camera motion (T2I, I2I, T2V, I2V) | `skills/crun-action-camera-enhancer/SKILL.md` |
 
