@@ -43,8 +43,9 @@ crun-agent-skills/
 │   ├── crun-model-router/            # 从结构化意图选择并查询模型
 │   ├── crun-account-credits/         # 余额查询与可负担性预估
 │   ├── crun-task-runner/             # 任务创建、监控、恢复、结果交付
-│   └── crun-meme-generator/          # 静态表情包与动态 GIF 表情包生成（带视频转 GIF 转换）
-│   └── crun-media-enhancer/          # 视频、图片增强
+│   ├── crun-meme-generator/          # 静态表情包与动态 GIF 表情包生成（带视频转 GIF 转换）
+│   ├── crun-media-enhancer/          # 视频、图片增强
+│   └── crun-action-camera-enhancer/  # 角色动作、姿势动能与运镜拆解增强（支持文生图/图生图/文生视频/图生视频）
 ```
 
 一个完整的端到端请求会依次经过：
@@ -200,7 +201,15 @@ python runtime/crun_cli.py credits
 - 提交前先用按钮进行二次确认，包含风格、配文、分辨率及预估消耗。
 ```
 
-#### I) 预估消耗、查询余额或续查任务
+#### I) 角色动作、姿态动能与镜头语言增强
+
+```text
+使用 $crun-agent-skills 生成美少女发波的动作视频：
+- 自动拆解为低角度推进运镜轨迹、手掌强透视拉伸、双马尾/裙摆气浪后飘物理与蓝紫电弧光球特效
+- 智能路由至视频模型，做额度预估并用交互按钮弹出拆解详情供二次确认后渲染。
+```
+
+#### J) 预估消耗、查询余额或续查任务
 
 ```text
 使用 $crun-agent-skills 在提交前预估这个请求的额度消耗：
