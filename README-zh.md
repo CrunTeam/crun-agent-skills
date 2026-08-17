@@ -46,6 +46,7 @@ crun-agent-skills/
 │   ├── crun-meme-generator/          # 静态表情包与动态 GIF 表情包生成（带视频转 GIF 转换）
 │   ├── crun-media-enhancer/          # 视频、图片增强
 │   └── crun-action-camera-enhancer/  # 角色动作、姿势动能与运镜拆解增强（支持文生图/图生图/文生视频/图生视频）
+│   └── crun-character-reference/     # 角色参考图（九宫格、三视图、表情图等）。
 ```
 
 一个完整的端到端请求会依次经过：
