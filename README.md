@@ -54,7 +54,8 @@ crun-agent-skills/
 │       ├── crun-educational-comic/       # Multi-panel educational comics & storyboards
 │       ├── crun-media-enhancer/          # Enhance videos and images
 │       ├── crun-action-camera-enhancer/  # Character action, pose dynamics & camera motion director (T2I, I2I, T2V, I2V)
-│       └── crun-character-reference/     # Character reference sheet (nine-grid, turnaround, expression sheet, etc.)
+│       ├── crun-character-reference/     # Character reference sheet (nine-grid, turnaround, expression sheet, etc.)
+│       └── crun-effect-template/          # Discover and apply Kling, Vidu, or ByteDance effect templates
 ```
 
 A typical end-to-end request flows through:
@@ -267,6 +268,12 @@ python runtime/crun_cli.py models list --local
 python runtime/crun_cli.py models describe --model google/nano-banana-pro
 # Route from a structured intent
 python runtime/crun_cli.py models route --intent-file intent.json
+
+# Effect templates
+# Browse one platform
+python runtime/crun_cli.py templates list --platform kling --page 1 --page-size 20
+# Look up one exact template ID; Vidu's different API parameter is mapped automatically
+python runtime/crun_cli.py templates list --platform vidu --template-id <template_id>
 
 # Media upload
 # Upload a local image/video/audio
