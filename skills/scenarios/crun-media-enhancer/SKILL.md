@@ -5,7 +5,7 @@ description: Enhance or upscale an uploaded video or image with Crun through a l
 
 # Crun Media Enhancer
 
-Use `../../runtime/crun_cli.py`. Use the fixed model `video-enhance` for video and `image-upscale` for images. Read `../crun-account-credits/SKILL.md` before estimating and `../crun-task-runner/SKILL.md` before creating or monitoring a task.
+Use `../../../runtime/crun_cli.py`. Use the fixed model `video-enhance` for video and `image-upscale` for images. Read `../../crun-account-credits/SKILL.md` before estimating and `../../crun-task-runner/SKILL.md` before creating or monitoring a task.
 
 Use the official parameter guides as the human-facing reference: `https://docs.crun.ai/ai-tools/video-enhance` for video and `https://docs.crun.ai/ai-tools/image-upscale` for images. Still inspect the live model schema after confirmation as required below.
 

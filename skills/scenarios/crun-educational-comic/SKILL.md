@@ -11,7 +11,7 @@ Use this skill to transform complex educational concepts, science principles, hi
 - **Visual & Character Consistency**: Enforce consistent recurring educational characters (e.g. *Professor Owl & Curious Leo*, *Dr. Byte & Apprentice Sam*, or custom user characters) and distinct art styles (*2D Flat Educational Vector*, *Infographic Manga*, *Hand-drawn Blackboard Sketch*, *Retro Comic Book*).
 - **Pure Visual AI Prompting**: Construct visual prompts for Crun T2I/I2I image models in clear English (bypassing AI text rendering errors inside image models).
 - **Interactive Button Confirmation**: Present complete comic breakdown (panel prompts, style, model, and credit estimate) via `ask_question` tool before task creation.
-- **Automated Canvas Stitching & Captioning**: Post-process panel images using `skills/crun-educational-comic/scripts/stitch_comic_panels.py` to produce a composite comic grid (2x2, 1x4, 2x3, etc.) featuring title banners, panel numbers, and crisp dialogue callouts in the user's language.
+- **Automated Canvas Stitching & Captioning**: Post-process panel images using `skills/scenarios/crun-educational-comic/scripts/stitch_comic_panels.py` to produce a composite comic grid (2x2, 1x4, 2x3, etc.) featuring title banners, panel numbers, and crisp dialogue callouts in the user's language.
 
 ---
 
@@ -43,7 +43,7 @@ User Request (Topic / Concept / Script)
    │       └─ python <root>/runtime/crun_cli.py task wait --task-id <task_id>
    │
    └── 6. Multi-Panel Stitching & Caption Overlay
-           └─ python <skill-root>/skills/crun-educational-comic/scripts/stitch_comic_panels.py <panel_paths...> \
+           └─ python <skill-root>/skills/scenarios/crun-educational-comic/scripts/stitch_comic_panels.py <panel_paths...> \
                 --title "<Comic_Title>" --captions "<Caption_1>" "<Caption_2>" ... --grid <2x2|1x4|2x3> -o <output.png>
 ```
 
@@ -150,7 +150,7 @@ Collect all downloaded panel image file paths: `[panel_1.png, panel_2.png, panel
 Invoke `stitch_comic_panels.py` to assemble the downloaded panel images into a unified comic layout with title header and text captions:
 
 ```bash
-python <skill-root>/skills/crun-educational-comic/scripts/stitch_comic_panels.py \
+python <skill-root>/skills/scenarios/crun-educational-comic/scripts/stitch_comic_panels.py \
   <panel_1.png> <panel_2.png> <panel_3.png> <panel_4.png> \
   --title "<Comic_Title>" \
   --captions "<Caption_1>" "<Caption_2>" "<Caption_3>" "<Caption_4>" \
@@ -199,7 +199,7 @@ Always deliver the final result with execution details and an inline local markd
   4. Panel 4: Leo & Dr. Owl high-fiving ("Physics is everywhere!").
 - **Stitching Command**:
   ```bash
-  python skills/crun-educational-comic/scripts/stitch_comic_panels.py \
+  python skills/scenarios/crun-educational-comic/scripts/stitch_comic_panels.py \
     panel_1.png panel_2.png panel_3.png panel_4.png \
     --title "Science Comic: Newton's Third Law" \
     --captions "Dr. Owl: For every action, there is an equal and opposite reaction!" \
@@ -223,7 +223,7 @@ Always deliver the final result with execution details and an inline local markd
   3. Panel 3: Safely merging the tested feature branch back into `main`.
 - **Stitching Command**:
   ```bash
-  python skills/crun-educational-comic/scripts/stitch_comic_panels.py \
+  python skills/scenarios/crun-educational-comic/scripts/stitch_comic_panels.py \
     panel_1.png panel_2.png panel_3.png \
     --title "Tech Comic: Understanding Git Branching" \
     --captions "Sam: I'm scared to test new code directly on the production main branch!" \
