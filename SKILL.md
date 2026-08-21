@@ -32,6 +32,7 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Enhance an uploaded image or video                                  | `skills/scenarios/crun-media-enhancer/SKILL.md`         |
 | Enhance character action, pose & camera motion (T2I, I2I, T2V, I2V) | `skills/scenarios/crun-action-camera-enhancer/SKILL.md` |
 | Generate character reference sheets                                 | `skills/scenarios/crun-character-reference/SKILL.md`    |
+| Replicate, restyle, or remake photos (portrait, pose, style)       | `skills/scenarios/crun-photo-replication/SKILL.md`     |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.
