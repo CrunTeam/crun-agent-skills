@@ -38,8 +38,8 @@ User Request (Meme/Emoji/GIF)
    │       └─ python <root>/runtime/crun_cli.py task wait --task-id <task_id> --timeout-seconds 120
    │
    └── 6. Final Text Overlay & Output Formatting
-           ├─ Static Image: python <skill-root>/skills/crun-meme-generator/scripts/image_text_overlay.py <image-path> --text "<caption_text>" --output <meme-path>
-           └─ Animated GIF: python <skill-root>/skills/crun-meme-generator/scripts/video_to_gif.py <video-path> --text "<caption_text>" --output <gif-path>
+           ├─ Static Image: python <skill-root>/skills/scenarios/crun-meme-generator/scripts/image_text_overlay.py <image-path> --text "<caption_text>" --output <meme-path>
+           └─ Animated GIF: python <skill-root>/skills/scenarios/crun-meme-generator/scripts/video_to_gif.py <video-path> --text "<caption_text>" --output <gif-path>
 ```
 
 ---
@@ -170,7 +170,7 @@ When task completes, `crun_cli.py` automatically downloads the result media to `
 Invoke `image_text_overlay.py` to overlay text onto the static image:
 
 ```text
-python <skill-root>/skills/crun-meme-generator/scripts/image_text_overlay.py <image-path> --output <meme-path> --text "<caption_text>" --text-position bottom --style stroke
+python <skill-root>/skills/scenarios/crun-meme-generator/scripts/image_text_overlay.py <image-path> --output <meme-path> --text "<caption_text>" --text-position bottom --style stroke
 ```
 
 **Parameters for `image_text_overlay.py`**:
@@ -199,7 +199,7 @@ The script returns JSON output:
 Invoke `video_to_gif.py` to convert MP4 to GIF and overlay text:
 
 ```text
-python <skill-root>/skills/crun-meme-generator/scripts/video_to_gif.py <video-path> --output <gif-path> --fps 12 --width 480 --text "<caption_text>" --text-position bottom
+python <skill-root>/skills/scenarios/crun-meme-generator/scripts/video_to_gif.py <video-path> --output <gif-path> --fps 12 --width 480 --text "<caption_text>" --text-position bottom
 ```
 
 **Parameters for `video_to_gif.py`**:

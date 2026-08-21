@@ -1,4 +1,5 @@
 # Crun Agent Skills
+
 ![Crun Agent Skills Cover](./assets/readme-cover.png)
 An open-source **AI media generation skill set** for AI agents, built on the [Crun](https://crun.ai/zh) API. It lets
 your agent route, estimate, create, monitor, and retrieve **image, video, speech, and music** generation tasks on its
@@ -32,7 +33,8 @@ Kling v3, Sora 2, Seedream, FLUX, Qwen-Image, Wan 2.7, Vidu Q3, Suno API, and Qw
 
 ## How It Works
 
-The repository is a composable skill package with one entry skill and four focused child skills:
+The repository is a composable skill package with one entry skill, three core pipeline skills, and a growing set of
+scenario skills that compose them:
 
 ```text
 crun-agent-skills/
@@ -44,13 +46,15 @@ crun-agent-skills/
 ├── agents/
 │   └── openai.yaml                   # Agent interface metadata
 ├── skills/
-│   ├── crun-model-router/            # Pick & inspect a model from a structured intent
-│   ├── crun-account-credits/         # Balance check & affordability estimation
-│   ├── crun-task-runner/             # Task creation, monitoring, recovery, result delivery
-│   ├── crun-meme-generator/          # Static & animated GIF meme generator (with MP4 to GIF converter)
-│   ├── crun-media-enhancer/          # Enhance videos and images
-│   └── crun-action-camera-enhancer/  # Character action, pose dynamics & camera motion director (T2I, I2I, T2V, I2V)
-│   └── crun-character-reference/     # Character reference sheet (nine-grid, turnaround, expression sheet, etc.).
+│   ├── crun-model-router/            # Core: pick & inspect a model from a structured intent
+│   ├── crun-account-credits/         # Core: balance check & affordability estimation
+│   ├── crun-task-runner/             # Core: task creation, monitoring, recovery, result delivery
+│   └── scenarios/                    # Scenario skills — matched by user intent, built on the core pipeline
+│       ├── crun-meme-generator/          # Static & animated GIF meme generator (with MP4 to GIF converter)
+│       ├── crun-educational-comic/       # Multi-panel educational comics & storyboards
+│       ├── crun-media-enhancer/          # Enhance videos and images
+│       ├── crun-action-camera-enhancer/  # Character action, pose dynamics & camera motion director (T2I, I2I, T2V, I2V)
+│       └── crun-character-reference/     # Character reference sheet (nine-grid, turnaround, expression sheet, etc.)
 ```
 
 A typical end-to-end request flows through:
@@ -202,24 +206,7 @@ Use $crun-agent-skills to synthesize this paragraph as natural speech: "..."
 Use $crun-agent-skills to generate a warm lo-fi instrumental study track.
 ```
 
-#### H) Generate static and animated GIF memes
-
-```text
-Use $crun-agent-skills to create a 3D cartoon style animated GIF meme:
-- Prompt: Funny reaction animation of a cute cat shaking its head
-- Auto-select lowest resolution for fast & affordable generation, convert MP4 to GIF, and overlay text caption "Monday Mood"
-- Ask for confirmation via interactive choice buttons showing model, caption, resolution, and credit estimate.
-```
-
-#### I) Enhance character action, pose dynamics, and camera trajectories
-
-```text
-Use $crun-agent-skills to generate an anime action video of a heroine casting an energy beam:
-- Automatically decompose into low-angle push-in camera trajectory, hand foreshortening, twin-tail/skirt wind physics, and glowing cyan energy orb VFX.
-- Route to video model, estimate credit usage, and prompt interactive confirmation buttons before rendering.
-```
-
-#### J) Estimate credits, check balance, or resume a task
+#### H) Estimate credits, check balance, or resume a task
 
 ```text
 Use $crun-agent-skills to quote credits before submission for this request:
