@@ -7,11 +7,11 @@ description: Generate character reference sheets (nine-grid pose sheets, turnaro
 
 Use this skill to produce character reference artwork through Crun image models. It handles two entry paths — with a source image and without — and always finishes by returning the result file, selected model, and credits spent.
 
-Use `../../runtime/crun_cli.py`, `../../catalog/models.json`, and the shared child skills:
+Use `../../../runtime/crun_cli.py`, `../../../catalog/models.json`, and the shared child skills:
 
-- `../crun-model-router/SKILL.md` — model routing & live schema inspection
-- `../crun-account-credits/SKILL.md` — balance & affordability estimation
-- `../crun-task-runner/SKILL.md` — task creation, monitoring, recovery, result delivery (the authority)
+- `../../crun-model-router/SKILL.md` — model routing & live schema inspection
+- `../../crun-account-credits/SKILL.md` — balance & affordability estimation
+- `../../crun-task-runner/SKILL.md` — task creation, monitoring, recovery, result delivery (the authority)
 
 ## Trigger
 
@@ -81,7 +81,7 @@ Compose a clear **English** visual description from the chosen style + gender + 
 
 ## Format → model & prompt
 
-Pick the model from the table by format. The operation column assumes the entry path; if a chosen model does not support the needed operation, fall back to `../crun-model-router/SKILL.md`.
+Pick the model from the table by format. The operation column assumes the entry path; if a chosen model does not support the needed operation, fall back to `../../crun-model-router/SKILL.md`.
 
 | Format | Layout | Aspect / resolution | Preferred models (text-to-image) | Preferred models (image-edit, needs `supports_reference`) |
 |---|---|---|---|---|
@@ -103,7 +103,7 @@ Do not ask the image model to render long CJK text inside the artwork. For the d
 
 ## Estimate & confirm
 
-Read `../crun-account-credits/SKILL.md`. Estimate the final model and exact input before creating any task:
+Read `../../crun-account-credits/SKILL.md`. Estimate the final model and exact input before creating any task:
 
 ```text
 python <root>/runtime/crun_cli.py task estimate --model <model> --input-file <input.json>
@@ -113,7 +113,7 @@ Require `affordable: true`. Because the model was chosen by this skill (not expl
 
 ## Create & deliver
 
-Read `../crun-task-runner/SKILL.md` for the authoritative execution rules. Create once, capture `task_id`, and poll in short resumable rounds:
+Read `../../crun-task-runner/SKILL.md` for the authoritative execution rules. Create once, capture `task_id`, and poll in short resumable rounds:
 
 ```text
 python <root>/runtime/crun_cli.py task create --model <model> --input-file <input.json>

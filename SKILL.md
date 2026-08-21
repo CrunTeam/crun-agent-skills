@@ -10,33 +10,33 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 - `runtime/crun_cli.py` handles model discovery, credit checks, task creation, status, polling, local-file upload, and
   generated-media downloads. Upload with `crun_cli.py upload <local-file>`.
 - `catalog/models.json` is the local routing catalog.
-- `skills/` contains the focused instructions listed below; read the relevant child `SKILL.md` before performing that
-  part of the workflow.
+- `skills/` contains the core pipeline skills, and `skills/scenarios/` the scenario skills, listed below; read the
+  relevant child `SKILL.md` before performing that part of the workflow.
 
 ## Select the workflow
+
+**Core pipeline skills** — the shared infrastructure every request flows through (route → estimate → create/monitor):
 
 | Need                                        | Read and use                           |
 |---------------------------------------------|----------------------------------------|
 | Choose a model from a broad request         | `skills/crun-model-router/SKILL.md`    |
 | Check balance or affordability              | `skills/crun-account-credits/SKILL.md` |
 | Create, monitor, resume, or retrieve a task | `skills/crun-task-runner/SKILL.md`     |
-| Generate static image or animated GIF memes | `skills/crun-meme-generator/SKILL.md`  |
-| Generate multi-panel educational comics & storyboards | `skills/crun-educational-comic/SKILL.md` |
-| Enhance an uploaded image or video          | `skills/crun-media-enhancer/SKILL.md`  |
-| Enhance character action, pose & camera motion (T2I, I2I, T2V, I2V) | `skills/crun-action-camera-enhancer/SKILL.md` |
-| Generate character reference sheets         | `skills/crun-character-reference/SKILL.md` |
+
+**Scenario skills** (`skills/scenarios/`) — matched by user intent; each one composes the core pipeline internally:
+
+| Need                                                                | Read and use                                            |
+|---------------------------------------------------------------------|---------------------------------------------------------|
+| Generate static image or animated GIF memes                         | `skills/scenarios/crun-meme-generator/SKILL.md`         |
+| Generate multi-panel educational comics & storyboards               | `skills/scenarios/crun-educational-comic/SKILL.md`      |
+| Enhance an uploaded image or video                                  | `skills/scenarios/crun-media-enhancer/SKILL.md`         |
+| Enhance character action, pose & camera motion (T2I, I2I, T2V, I2V) | `skills/scenarios/crun-action-camera-enhancer/SKILL.md` |
+| Generate character reference sheets                                 | `skills/scenarios/crun-character-reference/SKILL.md`    |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.
 Treat `crun-task-runner` as the single authority for task creation, authorization gates, timeout recovery, failure
 handling, and result delivery. Read it before creating any task.
-
-**Dispatch rule (mandatory, before any other step):** if the request involves character actions, combat/fight scenes,
-martial arts, jumping, magic casting, acrobatics, dynamic poses, camera motion, or animating/transforming a character
-— FIRST invoke the `crun-action-camera-enhancer` skill through the Skill tool (loading `skills/crun-action-camera-enhancer/SKILL.md`
-into context), then build the prompt from its director breakdown before routing the model. Route afterwards with the
-enhanced prompt in mind. Do not skip it for action-heavy requests, and do not merely read the file — the skill must be
-explicitly loaded via the Skill tool so it shows as an active/loaded skill.
 
 ## Pass JSON portably
 

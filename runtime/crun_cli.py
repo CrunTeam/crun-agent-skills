@@ -21,6 +21,7 @@ DEFAULT_BASE_URL = "https://api.crun.ai"
 DEFAULT_BASE_URL_CHINA = "https://api.crunai.com"  # for mainland China regions
 DEFAULT_REQUEST_RETRIES = 2
 SUCCESS_CODE = 200
+CHUNK_SIZE = 5 * 1024 * 1024
 TERMINAL_STATUSES = {"success", "failed"}
 RETRYABLE_HTTP_STATUS_CODES = {408, 429, 500, 502, 503, 504}
 
@@ -429,7 +430,7 @@ def download_task_media(task: dict[str, Any], output_dir: Path) -> dict[str, Any
             task_dir.mkdir(parents=True, exist_ok=True)
             request = Request(media_url, headers={"User-Agent": "crun-agent-skills/1"})
             with urlopen(request, timeout=30.0) as response, temporary.open("wb") as destination:
-                while chunk := response.read(1024 * 1024):
+                while chunk := response.read(CHUNK_SIZE):
                     destination.write(chunk)
             temporary.replace(target)
             local_media_paths.append(str(target))
