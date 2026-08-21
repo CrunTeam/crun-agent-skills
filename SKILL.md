@@ -32,7 +32,8 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Enhance an uploaded image or video                                  | `skills/scenarios/crun-media-enhancer/SKILL.md`         |
 | Enhance character action, pose & camera motion (T2I, I2I, T2V, I2V) | `skills/scenarios/crun-action-camera-enhancer/SKILL.md` |
 | Generate character reference sheets                                 | `skills/scenarios/crun-character-reference/SKILL.md`    |
-| Replicate, restyle, or remake photos (portrait, pose, style)       | `skills/scenarios/crun-photo-replication/SKILL.md`     |
+| Replicate, restyle, or remake photos (portrait, pose, style)        | `skills/scenarios/crun-photo-replication/SKILL.md`      |
+| Discover and apply Kling, Vidu, or ByteDance effect templates       | `skills/scenarios/crun-effect-template/SKILL.md`        |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.
@@ -95,5 +96,6 @@ Keep API keys out of task payloads, output, and committed files. Let the runtime
 the `~/.crun/.env` file first, then the `CRUN_API_KEY` environment variable. When no key is configured, the runtime
 returns `configuration_options` — an ordered list with a permanent setup command for each method split by platform
 (`macos_linux`, `windows_cmd`, `windows_powershell`). Recommend the first option: the CLI's own
-`python "<absolute path to runtime>/crun_cli.py" config set-api-key <your_api_key>` command (already fully resolved in the
+`python "<absolute path to runtime>/crun_cli.py" config set-api-key <your_api_key>` command (already fully resolved in
+the
 payload), which validates the key and persists it into `~/.crun/.env` so it works across sessions on every platform.

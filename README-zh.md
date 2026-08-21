@@ -49,7 +49,8 @@ crun-agent-skills/
 │       ├── crun-media-enhancer/          # 视频、图片增强
 │       ├── crun-action-camera-enhancer/  # 角色动作、姿势动能与运镜拆解增强（支持文生图/图生图/文生视频/图生视频）
 │       ├── crun-character-reference/     # 角色参考图（九宫格、三视图、表情图等）
-│       └── crun-photo-replication/       # 照片复刻与跨画风重构（同款替换、老照片高清修复、姿势复刻等）
+│       ├── crun-photo-replication/          # 照片复刻与跨画风重构（同款替换、老照片高清修复、姿势复刻等）
+│       └── crun-effect-template/          # 获取并调用 Kling、Vidu、ByteDance 特效模板
 ```
 
 一个完整的端到端请求会依次经过：
@@ -255,6 +256,12 @@ python runtime/crun_cli.py models list --local
 python runtime/crun_cli.py models describe --model google/nano-banana-pro
 # 按结构化意图从本地目录路由模型
 python runtime/crun_cli.py models route --intent-file intent.json
+
+# 特效模板
+# 分页获取指定平台模板
+python runtime/crun_cli.py templates list --platform kling --page 1 --page-size 20
+# 按模板 ID 精确查询；CLI 会自动适配 Vidu 不同的接口参数名
+python runtime/crun_cli.py templates list --platform vidu --template-id <template_id>
 
 # 素材上传
 # 上传本地图片/视频/音频
