@@ -50,6 +50,7 @@ crun-agent-skills/
 │   ├── crun-meme-generator/          # Static & animated GIF meme generator (with MP4 to GIF converter)
 │   ├── crun-media-enhancer/          # Enhance videos and images
 │   └── crun-action-camera-enhancer/  # Character action, pose dynamics & camera motion director (T2I, I2I, T2V, I2V)
+│   └── crun-character-reference/     # Character reference sheet (nine-grid, turnaround, expression sheet, etc.).
 ```
 
 A typical end-to-end request flows through:

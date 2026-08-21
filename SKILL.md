@@ -24,6 +24,7 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Generate multi-panel educational comics & storyboards | `skills/crun-educational-comic/SKILL.md` |
 | Enhance an uploaded image or video          | `skills/crun-media-enhancer/SKILL.md`  |
 | Enhance character action, pose & camera motion (T2I, I2I, T2V, I2V) | `skills/crun-action-camera-enhancer/SKILL.md` |
+| Generate character reference sheets         | `skills/crun-character-reference/SKILL.md` |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.
