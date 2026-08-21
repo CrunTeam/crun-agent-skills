@@ -59,8 +59,8 @@ removing examples and repetitive wording while retaining every constraint that c
 count and order, subject type or count, accepted aspect ratio or range, prompt requirements, and unsupported inputs.
 Report the credit value exactly as returned. For ByteDance, include every `Resolution` and `Credit` pair from
 `ConsumeItems` inside the single credit-cost field so no pricing option is lost. Prefer the video preview field
-(`video_url`, `video`, or `PreviewVideo`); when no preview link exists, display a localized explicit value such as
-`None` or `无`. If the relevant candidates require
+(`video_url`, `video`, or `PreviewVideo`); when no preview link exists, display a localized explicit value. If the
+relevant candidates require
 multiple messages, continue until every candidate and every required field has been shown. Template browsing or
 choosing a preview is not authorization to spend credits.
 
