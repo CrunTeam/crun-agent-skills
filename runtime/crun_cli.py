@@ -25,6 +25,21 @@ CHUNK_SIZE = 5 * 1024 * 1024
 TERMINAL_STATUSES = {"success", "failed"}
 RETRYABLE_HTTP_STATUS_CODES = {408, 429, 500, 502, 503, 504}
 
+TEMPLATE_PLATFORMS = {
+    "kling": {
+        "path": "/api/v1/client/job/kling-templates",
+        "template_parameter": "template_id",
+    },
+    "vidu": {
+        "path": "/api/v1/client/job/vidu-templates",
+        "template_parameter": "template",
+    },
+    "bytedance": {
+        "path": "/api/v1/client/job/bytedance-templates",
+        "template_parameter": "template_id",
+    },
+}
+
 API_KEY_ENV = "CRUN_API_KEY"
 API_KEY_PREFIX = "ak_"
 API_KEY_LENGTH = 35
@@ -286,6 +301,21 @@ class CrunClient:
 
     def describe_model(self, model: str) -> dict[str, Any]:
         return self.request("GET", f"/api/v1/client/job/Models/{quote(model, safe='/')}")
+
+    def list_templates(
+        self,
+        platform: str,
+        page: int = 1,
+        page_size: int = 20,
+        template_id: Optional[str] = None,
+    ) -> dict[str, Any]:
+        config = TEMPLATE_PLATFORMS[platform]
+        query: dict[str, Any] = {
+            "page": page,
+            "page_size": page_size,
+            config["template_parameter"]: template_id,
+        }
+        return self.request("GET", config["path"], query=query)
 
     def estimate_task(self, payload: dict[str, Any]) -> dict[str, Any]:
         return self.request("POST", "/api/v1/client/job/EstimateTask", body=payload)
@@ -613,6 +643,15 @@ def build_parser() -> argparse.ArgumentParser:
     route = model_sub.add_parser("route")
     add_json_source_options(route, "intent")
 
+    templates = subparsers.add_parser("templates", help="List effect templates by platform")
+    template_sub = templates.add_subparsers(dest="templates_command", required=True)
+    template_list = template_sub.add_parser("list")
+    template_list.add_argument("--platform", required=True, choices=tuple(TEMPLATE_PLATFORMS))
+    template_list.add_argument("--page", default=1)
+    template_list.add_argument("--page-size", default=20, help="Number of templates to return per page, Max: 50")
+    template_list.add_argument("--template-id", help="Return one exact template ID when supported")
+    add_remote_options(template_list)
+
     task = subparsers.add_parser("task", help="Estimate, create, inspect, or run tasks")
     task_sub = task.add_subparsers(dest="task_command", required=True)
     for name in ("estimate", "create", "run"):
@@ -683,6 +722,14 @@ def execute(args: argparse.Namespace) -> Any:
             ]
             return {"total": len(models), "models": models}
         return client_from_args(args).list_models(args.modality, args.operation)
+
+    if args.command == "templates" and args.templates_command == "list":
+        return client_from_args(args).list_templates(
+            args.platform,
+            args.page,
+            args.page_size,
+            args.template_id,
+        )
 
     if args.command == "task":
         client = client_from_args(args)

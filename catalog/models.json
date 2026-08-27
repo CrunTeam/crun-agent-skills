@@ -754,6 +754,19 @@
       "routing_priority": 55
     },
     {
+        "model": "kling/template",
+        "model_type": "tools",
+        "modality": "video",
+        "operations": [
+            "template-to-video"
+        ],
+        "quality_tier": "high",
+        "speed_tier": "balanced",
+        "supports_reference": true,
+        "supports_native_audio": true,
+        "routing_priority": 65
+    },
+    {
       "model": "minimax/hailuo-02",
       "model_type": "video",
       "modality": "video",
@@ -1096,8 +1109,8 @@
       "quality_tier": "standard",
       "speed_tier": "balanced",
       "supports_reference": true,
-      "supports_native_audio": false,
-      "routing_priority": 50
+      "supports_native_audio": true,
+      "routing_priority": 55
     },
     {
       "model": "flux-2-flex",
