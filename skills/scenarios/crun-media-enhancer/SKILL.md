@@ -1,13 +1,13 @@
 ---
 name: crun-media-enhancer
-description: Enhance or upscale an uploaded video or image with Crun through a localized configuration form, an affordability check, asynchronous execution, and result delivery. Use when the user asks to improve video quality, clarity, resolution, frame rate, restore old footage, upscale an image, sharpen or add image detail, repair hands, or enhance an existing video or image resource.
+description: Enhance or upscale an uploaded video or image with Crun through a localized configuration form, an affordability check, asynchronous execution, and result delivery. Use when the user asks to improve video quality, clarity, resolution, frame rate, restore old footage, upscale an image, sharpen or add image detail, or enhance an existing video or image resource.
 ---
 
 # Crun Media Enhancer
 
 Use `../../../runtime/crun_cli.py`. Use the fixed model `video-enhance` for video and `image-upscale` for images. Read `../../crun-account-credits/SKILL.md` before estimating and `../../crun-task-runner/SKILL.md` before creating or monitoring a task.
 
-Use the official parameter guides as the human-facing reference: `https://docs.crun.ai/ai-tools/video-enhance` for video and `https://docs.crun.ai/ai-tools/image-upscale` for images. Still inspect the live model schema after confirmation as required below.
+Use the official parameter guides as the human-facing reference: `https://docs.crun.ai/ai-tools/video-enhance` for video and `https://docs.crun.ai/zh/ai-tools/image-upscale` for images. Still inspect the live model schema after confirmation as required below.
 
 ## Localize every interaction
 
@@ -41,9 +41,9 @@ Use the returned `file_url`. Reuse an existing Crun resource URL directly. Never
 
 ## Analyze the source before matching settings
 
-Before showing the parameter guide, inspect the selected resource and record a concise localized analysis. For a video, determine available metadata such as duration, width/height, source frame rate, codec, audio presence, and visible content type; for an image, determine width/height, format, color mode, and whether it is small, blurry, noisy, a drawing, or likely to contain hands. Use `ffprobe` or another available media-metadata tool for video and Pillow or another available image-metadata tool for images. For a remote URL, probe the URL directly when supported or download only a temporary inspection copy; never put that temporary path in task JSON.
+Before showing the parameter guide, inspect the selected resource and record a concise localized analysis. For a video, determine available metadata such as duration, width/height, source frame rate, codec, audio presence, and visible content type; for an image, determine width/height, file size, format, color mode, whether it is small, blurry, noisy, or a drawing, and whether a face is a prominent subject. Use `ffprobe` or another available media-metadata tool for video and Pillow or another available image-metadata tool for images. For a remote URL, probe the URL directly when supported or download only a temporary inspection copy; never put that temporary path in task JSON.
 
-Match recommendations to the analysis instead of blindly using the table defaults. Avoid output resolution or frame rate that is disproportionate to the source; use 2× for already-large images and consider 4× for genuinely small sources; prefer Preserve original/Gentle for clean, high-fidelity sources and stronger presets only when blur, noise, or missing detail warrants them; infer scene from the actual content. If metadata or visual analysis is unavailable, say so in localized text and use conservative recommended defaults. Include the analysis basis in the configuration summary.
+Match recommendations to the analysis instead of blindly using the table defaults. Avoid output resolution or frame rate that is disproportionate to the source. For images, normally prefer automatic scaling; when an explicit factor is useful, use 4× for a longest edge in `(10, 512]`, 2× for `(512, 1024]`, and 1× for `(1024, 4096]`. Prefer Face enhancement only when a face is a prominent subject; otherwise use General enhancement. If metadata or visual analysis is unavailable, say so in localized text and use conservative recommended defaults. Include the analysis basis in the configuration summary.
 
 ## Explain parameters, then collect structured choices
 
@@ -58,7 +58,7 @@ Never ask the user to type a parameter name, API value, option label, number, co
 
 Do not output a message saying that the task is paused because `request_user_input` is unavailable in Default mode. Default mode must take the analyzed-settings confirmation path above. The only free-text response permitted is the final yes/no confirmation of the already displayed configuration; never use free text to select or edit individual parameters. For any other actual structured-tool failure, report the concrete error and stop before task creation rather than silently treating an unexpected failure as user confirmation.
 
-Use human-readable localized labels in both the guide table and controls. Never use raw API field names such as `mode`, `dynamic`, or `resemblance` as primary visible labels. Keep the API value behind each choice. Mark the recommended choice and preselect it by default; preselect any explicit preference from the user's request when valid. Do not interpret the original enhancement request as form submission. The final structured submission is the confirmation for structured mode; the explicit yes/no response is the confirmation for Default-mode fallback.
+Use human-readable localized labels in both the guide table and controls. Never use raw API field names such as `mode`, `scale_factor`, or `output_format` as primary visible labels. Keep the API value behind each choice. Mark the recommended choice and preselect it by default; preselect any explicit preference from the user's request when valid. Do not interpret the original enhancement request as form submission. The final structured submission is the confirmation for structured mode; the explicit yes/no response is the confirmation for Default-mode fallback.
 
 ### Video form
 
@@ -89,33 +89,27 @@ Construct only:
 
 ### Image form
 
-Use model `image-upscale` and place the single resource URL in `img_urls`. First show this localized guide table. Explain the preset as one visible parameter; its hidden tuning values are implementation details.
+Use model `image-upscale` and place the single resource URL in `img_urls`. Before configuration, verify every locally inspectable input constraint: exactly one image; maximum file size 20 MB; longest edge no greater than 4090 px; dimensions no greater than 4096 × 4096 px; and input format among JPG, JPEG, BMP, PNG, WebP, TIFF, TIF, BITMAP, RAW, RGB, JFIF, or LZW. For a local image, perform these checks before uploading it. If a remote resource cannot be inspected completely, state that limitation and let API validation enforce the same constraints. Do not submit a known-invalid image.
+
+First show this localized guide table.
 
 | Parameter | Meaning | Available choices and effects | Recommended default |
 |---|---|---|---|
-| Enhancement preset | Sets detail generation, source fidelity, denoising effort, and sharpening together. | Balanced: general-purpose detail and fidelity (`dynamic=6`, `creativity=0.35`, `resemblance=0.6`, `num_inference_steps=18`, `sharpen=0`); Preserve original: minimize visual changes (`3`, `0.2`, `1.0`, `18`, `0`); Maximum detail: stronger texture and sharpness (`9`, `0.5`, `0.8`, `30`, `2`); Creative restoration: reconstruct more missing detail with greater source deviation (`9`, `0.7`, `0.5`, `30`, `1`). | Balanced |
-| Enlargement | Controls output dimensions relative to the source. | 2× (`2`); 4× (`4`); 8× (`8`); 10× (`10`). Larger factors create bigger files and require more processing. | 2× (`2`) |
-| Hand repair | Controls specialized hand correction. | Off (`disabled`); Repair hands only (`hands_only`); Repair image and hands (`image_and_hands`). | Off (`disabled`) |
-| Output format | Sets the delivered image file type. | PNG: lossless (`png`); JPG: smaller file (`jpg`); WebP: modern compact format (`webp`). | PNG (`png`) |
-| Seamless texture | Controls whether edges are made tileable. | Off (`false`); On: make the result repeat seamlessly (`true`). | Off (`false`) |
+| Enlargement | Controls output dimensions relative to the source. | Automatic: omit `scale_factor`; the service uses 4× for longest edge `(10, 512]`, 2× for `(512, 1024]`, and 1× for `(1024, 4096]`. Explicit choices: keep size (`1`), 2× (`2`), or 4× (`4`). | Automatic |
+| Enhancement mode | Selects the enhancement behavior. | General (`clean`): the service default for most images; Face (`face`): optimized for images with a prominent face. | General (`clean`), or Face when supported by source analysis |
+| Output format | Sets the delivered image file type. | PNG: lossless and the service default (`png`); JPG: usually smaller (`jpg`). | PNG (`png`) |
 
-After showing the table, present five single-select controls, one for each row, in the same order.
+After showing the table, present three single-select controls, one for each row, in the same order. Treat Automatic as a real scale choice. In Default-mode fallback, use Automatic unless the user explicitly requested a valid factor.
 
-Do not show raw controls for `dynamic`, `creativity`, `resemblance`, `sharpen`, or `num_inference_steps`; derive them from the selected preset. Do not offer blank numeric overrides. Keep `prompt`, `negative_prompt`, and `mask` hidden unless the user explicitly requested guided enhancement, artifact suppression, or regional enhancement. When needed, explain the applicable extra parameter in the guide table and provide predefined single-select choices with sensible prefilled values; do not ask the user to type parameter content solely to select a configuration.
+Do not offer or send legacy image fields such as `dynamic`, `creativity`, `resemblance`, `sharpen`, `num_inference_steps`, `handfix`, `pattern`, `prompt`, `negative_prompt`, or `mask`. Do not offer unsupported scale factors or output formats.
 
-Omit empty optional fields instead of sending empty strings. Construct the confirmed values, for example:
+Omit `scale_factor` entirely for Automatic; never send an empty string or a made-up sentinel value. Construct only the confirmed values, for example:
 
 ```json
 {
   "img_urls": ["<uploaded-or-remote-url>"],
   "scale_factor": 2,
-  "dynamic": 6,
-  "creativity": 0.35,
-  "resemblance": 0.6,
-  "sharpen": 0,
-  "num_inference_steps": 18,
-  "handfix": "disabled",
-  "pattern": false,
+  "mode": "clean",
   "output_format": "png"
 }
 ```
