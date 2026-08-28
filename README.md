@@ -56,7 +56,8 @@ crun-agent-skills/
 │       ├── crun-action-camera-enhancer/  # Character action, pose dynamics & camera motion director (T2I, I2I, T2V, I2V)
 │       ├── crun-character-reference/     # Character reference sheet (nine-grid, turnaround, expression sheet, etc.)
 │       ├── crun-photo-replication/         # Replicate, restyle, or remake photos (portrait, vintage restoration, pose clone)
-│       └── crun-effect-template/          # Discover and apply Kling, Vidu, or ByteDance effect templates
+│       ├── crun-effect-template/          # Discover and apply Kling, Vidu, or ByteDance effect templates
+│       └── crun-url-promo-generator/      # Promotional images & video ads generated from website/product URL
 ```
 
 A typical end-to-end request flows through:

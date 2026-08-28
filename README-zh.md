@@ -50,7 +50,8 @@ crun-agent-skills/
 │       ├── crun-action-camera-enhancer/  # 角色动作、姿势动能与运镜拆解增强（支持文生图/图生图/文生视频/图生视频）
 │       ├── crun-character-reference/     # 角色参考图（九宫格、三视图、表情图等）
 │       ├── crun-photo-replication/          # 照片复刻与跨画风重构（同款替换、老照片高清修复、姿势复刻等）
-│       └── crun-effect-template/          # 获取并调用 Kling、Vidu、ByteDance 特效模板
+│       ├── crun-effect-template/          # 获取并调用 Kling、Vidu、ByteDance 特效模板
+│       └── crun-url-promo-generator/      # 根据网页/商品 URL 提取卖点并生成宣传海报与视频广告
 ```
 
 一个完整的端到端请求会依次经过：
