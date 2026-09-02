@@ -1,0 +1,4 @@
+interface:
+  display_name: "Crun Video & Script Cover Generator"
+  short_description: "Generate video covers, thumbnails, and title posters from videos or scripts"
+  default_prompt: "Use $crun-cover-generator to generate high-impact video thumbnails, cover images, or script title posters from a video file, link, or video script."

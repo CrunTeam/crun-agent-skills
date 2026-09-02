@@ -35,6 +35,7 @@ Use this skill as the entry point for Crun media work. Resolve all commands from
 | Replicate, restyle, or remake photos (portrait, pose, style)        | `skills/scenarios/crun-photo-replication/SKILL.md`      |
 | Discover and apply Kling, Vidu, or ByteDance effect templates       | `skills/scenarios/crun-effect-template/SKILL.md`        |
 | Generate promotional images or videos directly from website/product URL | `skills/scenarios/crun-url-promo-generator/SKILL.md`  |
+| Generate video covers, thumbnails & title posters from videos or scripts | `skills/scenarios/crun-cover-generator/SKILL.md`      |
 
 For a broad end-to-end request — the common case where the user describes the media they want but does not know Crun
 model names or payloads — follow the "Orchestrate safely" steps below, reading each child skill as that step needs it.
