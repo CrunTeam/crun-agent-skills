@@ -1,0 +1,4 @@
+interface:
+  display_name: "Crun Product Suite Image Generator"
+  short_description: "Generate 10 cohesive e-commerce product listing images (hero shot, features, lifestyle, details, specs, model demo, unboxing, studio luxury, multi-angle, promo banner)"
+  default_prompt: "Use $crun-product-suite-generator to generate a complete set of 10 e-commerce product images (商品十图套图) from product photos, references, URLs, or descriptions."

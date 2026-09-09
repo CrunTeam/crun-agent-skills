@@ -52,7 +52,8 @@ crun-agent-skills/
 │       ├── crun-photo-replication/          # 照片复刻与跨画风重构（同款替换、老照片高清修复、姿势复刻等）
 │       ├── crun-effect-template/          # 获取并调用 Kling、Vidu、ByteDance 特效模板
 │       ├── crun-url-promo-generator/      # 根据网页/商品 URL 提取卖点并生成宣传海报与视频广告
-│       └── crun-cover-generator/          # 根据视频文件/链接或视频脚本生成高吸引力视频封面与标题海报
+│       ├── crun-cover-generator/          # 根据视频文件/链接或视频脚本生成高吸引力视频封面与标题海报
+│       └── crun-product-suite-generator/  # 根据商品图片/描述生成完整电商10张商品套图与拼图卡
 ```
 
 一个完整的端到端请求会依次经过：
